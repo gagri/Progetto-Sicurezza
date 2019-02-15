@@ -1,0 +1,6 @@
+passargli come primo parametro il percorso della cartella da analizzare compreso il nome della cartella.
+Es vogliamo analizzare la cartella pippo
+
+C:\\percorso\pippo
+
+N.B. il programma modifica il percorso sostituendo \ con / perché è fatto su winzoz
