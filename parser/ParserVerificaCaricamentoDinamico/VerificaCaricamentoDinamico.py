@@ -8,6 +8,7 @@ import subprocess
 ##Comando per fare il grep nei file java:
 ##  find -name '*.java' -exec grep --color=always -in "ClassLoader" {} 2>/dev/null +
 
+#funzione che prende due percorsi di cartelle da cui far partire la find e poi fare la grep e stampare le differenze. Esportare poi la lista di differenze
 
 #definisco un oggetto che mi rappresenta la data applicazione
 class applicazione:
