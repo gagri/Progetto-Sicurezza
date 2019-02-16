@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import csv
 import sys
 import os
 import os.path
@@ -8,30 +7,11 @@ import subprocess
 ##Comando per fare il grep nei file java:
 ##  find -name '*.java' -exec grep --color=always -in "ClassLoader" {} 2>/dev/null +
 
-
-#definisco un oggetto che mi rappresenta la data applicazione
-class applicazione:
-	#definisco le variabili che mi interessano
-	identificativo=""
-	caricamentoDinamico1=0
-	caricamentoDinamico2=0
-	
-	#definisco un metodo che mi costruisce una stringa pronta per essere stampata su un csv
-	def csvPrint(self):
-        	string=[]
-		string.append(self.identificativo)
-		string.append(self.caricamentoDinamico1)
-		string.append(self.caricamentoDinamico2)
-		return string
-
-#variabili di supporto
-Caricamento1 = False
-Caricamento2 = False
-
 #definizione delle varie parti della stringa del comando
 parteIniziale='find -name "*.java" -exec grep -in '
 parteFinale=' {} 2>/dev/null +'
 stringhe=[]
+#definizione degli indicatori di caricamento dinamico
 stringhe.append('"dalvik.system.DexClassLoader"')
 stringhe.append('"dalvik.system.PathClassLoader"')
 stringhe.append('"dalvik.system.InMemoryDexClassLoader"')
@@ -41,7 +21,7 @@ stringhe.append('"java.net.URLClassLoader"')
 stringhe.append('"java.lang.reflect"')
 
 #definizione del metodo di verifica sulla singola applicazione
-def verificaIndicatori():
+def verificaIndicatori(listaIndicatori):
 	CaricamentoDinamico = False
 	for i in stringhe:
 		comando = parteIniziale+i+parteFinale
@@ -49,51 +29,37 @@ def verificaIndicatori():
 		stdout_value=proc.communicate()[0]
 		if stdout_value:
 			CaricamentoDinamico= True
+			listaIndicatori.append(stdout_value)
 	return CaricamentoDinamico
 
-#creo un nuovo oggetto che mi rappresentera' la singola applicazione
-app=applicazione()
 
-#serve un modo per recuperare un identificativo dell'applicazione
-#app.identificativo=""
+#la funzione prevede i due percorsi contenenti le due versioni delle app come input.
+#la funzione restituisce la lista delle differenze tra i due caricamenti dinamici se ci sono. Altrimenti restituisce una lista vuota se entrambe le app presentano gli stessi identici indicatori di caricamento dinamico. Restituisce infine un oggetto None se non ci sono indicatori di caricamento dinamico in nessuna delle due app
+def CaricamentoDinamico(percorso1,percorso2):
+	#variabili di supporto
+	#variabili che mi rappresentano gli indicatori di caricamento dinamico nelle due app
+	Caricamento1 = False
+	Caricamento2 = False
+	#lista degli indicatori di caricamento dinamico delle due app
+	listaIndicatori1=[]
+	listaIndicatori2=[]
+	#mi sposto nella cartella contenente la prima applicazione 
+	os.chdir(percorso1)
 
+	#verifico la presenza del caricamento dinamico nella prima app
+	CaricamentoDinamico1 = verificaIndicatori(listaIndicatori1)
 
-#mi sposto nella cartella contenente la prima applicazione 
+	#mi sposto nella cartella contenente la seconda applicazione 
+	os.chdir(percorso2)
 
-#verifico la presenza del caricamento dinamico nella prima app
-app.CaricamentoDinamico1 = verificaIndicatori()
+	#verifico la presenza del caricamento dimanico nella seconda app
+	CaricamentoDinamico2 = verificaIndicatori(listaIndicatori2)
 
+	#faccio la differenza tra i due set
+	if(CaricamentoDinamico1 or CaricamentoDinamico2):
+		return list(set(listaIndicatori1) - set(listaIndicatori2))
+	else:
+		return None
 
-#mi sposto nella cartella contenente la prima applicazione 
-
-#verifico la presenza del caricamento dimanico nella seconda app
-app.CaricamentoDinamico2 = verificaIndicatori()
-
-
-##stampa del cvs
-
-#cerco di creare un file csv da aprire piu' volte e su cui effettuare piu' stampe
-
-writepath = './data.csv'
-
-#verifico l'esistenza del file
-if(os.path.exists(writepath)):
-	#se esiste lo apro in modalita' append e aggiungo i dati nuovi
-	Resident_data = open(writepath,'a')
-	csvwriter = csv.writer(Resident_data)
-else:
-	# altrimenti lo creo 
-	Resident_data = open(writepath, 'w+')
-	csvwriter = csv.writer(Resident_data)
-	#creo la testa del file e la aggiungo
-	file_head=[]	
-	file_head.append("Applicazione")
-	file_head.append("CaricamentoDinamico")
-	csvwriter.writerow(file_head)
-
-#aggiungo il valore appena ottenuto al file
-csvwriter.writerow(app.csvPrint())
-
-#chiudo i file utilizzati
-Resident_data.close()
-
+#linea utilizzata per verificare che il programma funzioni
+#print(CaricamentoDinamico("/home/lucio/Scrivania/Progetto Sicurezza/ApkDec2400/9039/oad1fc0d7d0","/home/lucio/Scrivania/Progetto Sicurezza/ApkDec2400/9039/rfd5b5c7dac"))
