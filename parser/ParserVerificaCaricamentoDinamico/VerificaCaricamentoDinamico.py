@@ -57,7 +57,9 @@ def CaricamentoDinamico(percorso1,percorso2):
 
 	#faccio la differenza tra i due set
 	if(CaricamentoDinamico1 or CaricamentoDinamico2):
-		return list(set(listaIndicatori1) - set(listaIndicatori2))
+		lista=list(set(listaIndicatori1) - set(listaIndicatori2))
+		lista=lista+list(set(listaIndicatori2) - set(listaIndicatori1))
+		return lista
 	else:
 		return None
 
