@@ -1,18 +1,14 @@
 import os
-import fnmatch
 import parserManifest
+import VerificaCaricamentoDinamico
 
 import sys
-#A partire dal path specificato in dir, il programma stampa per ogni coppia
-#di App il numero di file contenuti nella directory res di ognuna delle due applicazioni
-
-#Passare la directory a riga di comando! secondo me è più conveniente scrivere il path iniziale direttamente nello script
 
 #path della directory contenete tutte le app
 #dir= "/Users/grima/Desktop/Materiale2"
-#dir=sys.argv[1]
+dir=sys.argv[1]
 
-dir = "D:\Apk_Dec1-1199"
+#dir = "D:\Apk_Dec1-1199"
 
 
 secondo = False # serve per vedere se ho preso il secondo file in modo da poter fare la differenza
@@ -21,18 +17,50 @@ secondo = False # serve per vedere se ho preso il secondo file in modo da poter 
 for item in os.listdir(dir): #cicla per ogni elemento di quella cartella, senza vedere le eventuali sotto cartelle
     itemfullpath = os.path.join(dir, item) #ottengo percorso completo
     print(itemfullpath)
-    for i in os.listdir(itemfullpath): #altra sottocartella
+    percorsifilejar = []
+    percorsidirectory = []
+    for i in os.listdir(itemfullpath): #scorro la sottocartella
         ifullpath = os.path.join(itemfullpath, i)
-        print(ifullpath)
-
-        filejar= []
-        if i.endswith(".jar"): #salvo il percorso dei file jar che trovo in un array, i primi due (dovrebbero sempre essere solo due) li passo come parametro per il confronto delle dipendenze
-            print("fle jar")
+        #print(ifullpath)
 
         '''
-        if os.path.isdir(os.path.join(itemfullpath, i)): #serve per controllare se l'elemento è una cartella
-            print()
+        if i.endswith(".jar"): #salvo il percorso dei file jar che trovo in una lista, i primi due (dovrebbero sempre essere solo due) li passo come parametro per il confronto delle dipendenze
+            print("da implementare")
         '''
+
+        #salvo il percorso delle sottodirectory che trovo in una lista, le prime due ( dovrebbero sempre essere solo due) le passo come parametri per la verifica del caricamento dinamico
+        if os.path.isdir(os.path.join(itemfullpath, i)):
+            #print("cartella")
+            percorsidirectory.append(ifullpath)
+
+
+    print
+    print 'prime due cartelle ottenute:'
+    print percorsidirectory[0]
+    print percorsidirectory[1]
+    print
+
+    coppiaManifest = parserManifest.coppiaManifest(os.path.join(percorsidirectory[0], "AndroidManifest.xml"),
+                                                   os.path.join(percorsidirectory[1], "AndroidManifest.xml"))
+    print 'differenza permessi:'
+    differenzaPermessi = coppiaManifest.differenzaPermessi()
+    print differenzaPermessi
+    print
+    print "differenza activity:"
+    differenzaActivity = coppiaManifest.differenzaActivity()
+    print differenzaActivity
+    print
+
+    vcd = VerificaCaricamentoDinamico.CaricamentoDinamico(percorsidirectory[0], percorsidirectory[1])
+    print 'risultato VerificaCaricamentoDinamico:'
+    for a in vcd:
+        print(a)
+    print
+    print
+    print
+
+
+
 
 
 
@@ -48,7 +76,6 @@ for root, dirs, files in os.walk(dir, topdown=False):
     for f in files:
         if f.endswith("AndroidManifest.xml"):
             path = os.path.join(root, f) #ottengo il path completo del file trovato
-            # PATCH DA DISCUTERE, il problema è che esiste un file xml nella cartella original che però non è ben formattato e che quindi da errore
             if "original" not in path:
                 if secondo == False:
                     path0 = path
