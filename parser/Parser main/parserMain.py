@@ -30,8 +30,8 @@ for item in os.listdir(dir): #cicla per ogni elemento di quella cartella, senza 
             percorsifilejar.append(ifullpath)
 
 
-        #salvo il percorso delle sottodirectory che trovo in una lista, le prime due ( dovrebbero sempre essere solo due) le passo come parametri per la verifica del caricamento dinamico
-        if os.path.isdir(os.path.join(itemfullpath, i)):
+        #salvo il percorso delle sottodirectory che trovo in una lista. Bisogna non prendere in consierazione la cartella "analisiDip" che viene creata dall'analisi con jdeps quindi con la funzione "ricercaDipendenze"
+        if os.path.isdir(os.path.join(itemfullpath, i)) and not i.endswith("analisiDip"):
             #print("cartella")
             percorsidirectory.append(ifullpath)
 
@@ -48,7 +48,7 @@ for item in os.listdir(dir): #cicla per ogni elemento di quella cartella, senza 
     print 'differenza permessi:'
     differenzaPermessi = coppiaManifest.differenzaPermessi()
     print differenzaPermessi
-    print
+    print 
     print "differenza activity:"
     differenzaActivity = coppiaManifest.differenzaActivity()
     print differenzaActivity
