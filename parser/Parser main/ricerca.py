@@ -1,5 +1,6 @@
 import os
 import sys
+import subprocess
 
 #ORA RICERCA DIPENDENZE RICEVE COME PARAMETRO IL PATH
 			
@@ -29,15 +30,22 @@ def ricercaDipendenze(path1 , path2):
 	os.system(comandoN2)
 	#comando per la diff
 	comandoDiff= "diff " + nodesFile1 + " " + nodesFile2
-	print comandoDiff
+	#print comandoDiff
 	#questa parte serve per inserire il risultato nel comando nell array che poi viene ritornato
+	'''
 	handle = os.popen(comandoDiff)
    	line = " "
    	while line:
         	line = handle.read()
-		print line
+		#print line
 		array_diff.append(line)
     	handle.close()
+	'''
+	proc = subprocess.Popen([comandoDiff],shell=True,stdout=subprocess.PIPE,)
+	stdout_value=proc.communicate()[0]
+	if stdout_value:
+		array_diff.append(stdout_value)
+		array_diff=array_diff[0].splitlines()
 	return array_diff
 
 

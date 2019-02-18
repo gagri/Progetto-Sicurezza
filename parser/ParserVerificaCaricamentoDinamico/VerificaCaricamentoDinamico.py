@@ -30,6 +30,7 @@ def verificaIndicatori(listaIndicatori):
 		if stdout_value:
 			CaricamentoDinamico= True
 			listaIndicatori.append(stdout_value)
+	listaIndicatori=listaIndicatori[0].splitlines()
 	return CaricamentoDinamico
 
 
@@ -53,11 +54,15 @@ def CaricamentoDinamico(percorso1,percorso2):
 	CaricamentoDinamico2 = verificaIndicatori(listaIndicatori2)
 	#faccio la differenza tra i due set
 	if(CaricamentoDinamico1 or CaricamentoDinamico2):
+		#print("indicatori prima app:\n")		
+		#print(listaIndicatori1)
+		#print("indicatori seconda app:\n")		
+		#print(listaIndicatori2)
 		lista=list(set(listaIndicatori1) - set(listaIndicatori2))
-		lista=lista+list(set(listaIndicatori2) - set(listaIndicatori1))
+		#lista=lista+list(set(listaIndicatori2) - set(listaIndicatori1))
 		return lista
 	else:
 		return None
 
 #linea utilizzata per verificare che il programma funzioni
-#print(CaricamentoDinamico("/home/lucio/Scrivania/Progetto Sicurezza/ApkDec2400/9039/oad1fc0d7d0","/home/lucio/Scrivania/Progetto Sicurezza/ApkDec2400/9039/rfd5b5c7dac"))
+#print(CaricamentoDinamico("/home/lucio/Scrivania/Progetto-Sicurezza/ApkProva/ApkProva/3/0046c61ae2","/home/lucio/Scrivania/Progetto-Sicurezza/ApkProva/ApkProva/3/b333c3b395"))

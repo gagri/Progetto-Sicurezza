@@ -2,6 +2,7 @@ import os
 import parserManifest
 import VerificaCaricamentoDinamico
 import ricerca
+import ComunicazioneDB
 
 import sys
 
@@ -12,7 +13,6 @@ dir=sys.argv[1]
 #dir = "D:\Apk_Dec1-1199"
 
 
-secondo = False # serve per vedere se ho preso il secondo file in modo da poter fare la differenza
 
 
 for item in os.listdir(dir): #cicla per ogni elemento di quella cartella, senza vedere le eventuali sotto cartelle
@@ -56,54 +56,20 @@ for item in os.listdir(dir): #cicla per ogni elemento di quella cartella, senza 
 
     #esegue la ricerca delle dipendenze e le stampa
     jdeps = ricerca.ricercaDipendenze(percorsifilejar[0], percorsifilejar[1])
-    print
-    # AGGIUNGERE LA STAMPA DELL'ARRAY DOPO AVER CAPITO L'ERRORE
+    print len(jdeps)
+    for a in jdeps:
+       print(a)
     print
 
     # esegue e stampa il caricamento dinamico
     vcd = VerificaCaricamentoDinamico.CaricamentoDinamico(percorsidirectory[0], percorsidirectory[1])
-    print 'risultato VerificaCaricamentoDinamico:'
+    #print 'risultato VerificaCaricamentoDinamico:'
     #for a in vcd:
-    #    print(a)
+     #   print(a)
     print
     print
     print
+    ComunicazioneDB.insert(item,differenzaPermessi,differenzaActivity,differenzaActivity,vcd,jdeps)
 
-
-
-
-
-
-
-
-'''
-#Esplora tutte le directory a partire dal path specificato (walk)
-for root, dirs, files in os.walk(dir, topdown=False):
-
-
- 
-    # cerca tutti i file e stampa nel caso trova i file chiamatai AndroidManifest.xml
-    for f in files:
-        if f.endswith("AndroidManifest.xml"):
-            path = os.path.join(root, f) #ottengo il path completo del file trovato
-            if "original" not in path:
-                if secondo == False:
-                    path0 = path
-                    secondo = True
-                else:
-                    print(path0)
-                    print(path)
-
-                    coppiaManifest = parserManifest.coppiaManifest(path0, path)
-                    print("differenza permessi:")
-                    differenzaPermessi = coppiaManifest.differenzaPermessi()
-                    print(differenzaPermessi)
-                    print("differenza activity:")
-                    differenzaActivity = coppiaManifest.differenzaActivity()
-                    print(differenzaActivity)
-
-                    print()
-                    secondo = False
-               # print(*permessi,sep="\n")  # stampa tutta la lista senza parentesi e dividendo ogni oggetto della lista con il valore sep
-    '''
+    
 
