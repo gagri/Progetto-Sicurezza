@@ -45,16 +45,12 @@ def CaricamentoDinamico(percorso1,percorso2):
 	listaIndicatori2=[]
 	#mi sposto nella cartella contenente la prima applicazione 
 	os.chdir(percorso1)
-
 	#verifico la presenza del caricamento dinamico nella prima app
 	CaricamentoDinamico1 = verificaIndicatori(listaIndicatori1)
-
 	#mi sposto nella cartella contenente la seconda applicazione 
 	os.chdir(percorso2)
-
 	#verifico la presenza del caricamento dimanico nella seconda app
 	CaricamentoDinamico2 = verificaIndicatori(listaIndicatori2)
-
 	#faccio la differenza tra i due set
 	if(CaricamentoDinamico1 or CaricamentoDinamico2):
 		lista=list(set(listaIndicatori1) - set(listaIndicatori2))
