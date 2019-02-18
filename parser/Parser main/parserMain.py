@@ -2,8 +2,8 @@ import os
 import parserManifest
 import VerificaCaricamentoDinamico
 import ricerca
-import ComunicazioneDB
-
+#import ComunicazioneDB
+import contaFiles
 import sys
 
 #path della directory contenete tutte le app
@@ -54,11 +54,22 @@ for item in os.listdir(dir): #cicla per ogni elemento di quella cartella, senza 
     print differenzaActivity
     print
 
+
+
+    #operazioni sui file
+    print "differenza tra i file:"
+    res1 = os.path.join(percorsidirectory[0], 'res') #unisco il path del percorso a "res"
+    res2 = os.path.join(percorsidirectory[1], 'res')
+    differenzaFile = contaFiles.differenzaRisorse(res1, res2)
+    print differenzaFile
+    print
+
+
     #esegue la ricerca delle dipendenze e le stampa
-    jdeps = ricerca.ricercaDipendenze(percorsifilejar[0], percorsifilejar[1])
-    print len(jdeps)
-    for a in jdeps:
-       print(a)
+
+    #jdeps = ricerca.ricercaDipendenze(percorsifilejar[0], percorsifilejar[1])
+ #  print len(jdeps)
+    #for a in jdeps:      print(a)
     print
 
     # esegue e stampa il caricamento dinamico
@@ -69,7 +80,7 @@ for item in os.listdir(dir): #cicla per ogni elemento di quella cartella, senza 
     print
     print
     print
-    ComunicazioneDB.insert(item,differenzaPermessi,differenzaActivity,differenzaActivity,vcd,jdeps)
+    #.insert(item,differenzaPermessi,differenzaActivity,differenzaActivity,vcd,jdeps)
 
     
 
