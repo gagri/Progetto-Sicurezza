@@ -87,8 +87,8 @@ def insertStampa(appId,listaPermessi,listaFile,listaActivity,listaIndicatoriCari
 # Funzione che serve a inserire i dati nel db
 # In input sono previsti: l'identificativo dell'applicazione, la lista dei permessi, la lista dei file, la lista delle activity, la lista degli indicatori di caricamento dinamico, la lista delle dipendenze
 def insert(appId,listaPermessi,listaFile,listaActivity,listaIndicatoriCaricamentoDinamico, listaDipendenze):
-	numeroClassiDipendenze=len(listaDipendenza)
-	for string in listaDipendenza:
+	numeroClassiDipendenze=len(listaDipendenze)
+	for string in listaDipendenze:
 		if string.startswith('<') or string.startswith('>'):
 			numeroClassiDipendenze=numeroClassiDipendenze-1
 	try:
