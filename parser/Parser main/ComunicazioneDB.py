@@ -3,7 +3,8 @@ from pymongo import MongoClient
 
 #non e' possibile includere la parte di connessione in una funzione perche' le variabili client e db devono essere globali ma la funzione insertStampa che non fa accessi al db funziona in ogni caso
 client = MongoClient('localhost:27017')
-db = client.App
+db = client.AppProva
+cl = db.prova
 
 # Funzione che serve a verificare l'effettivo collegamento con il db e che consente l'inserimento dei dati da stdinput
 # non sono previsti parametri in ingressi questi vengono inseriti tramite stdinput
@@ -36,7 +37,7 @@ def insertProva():
 		temp=raw_input('Aggingere una dipendenza:')
 		listaDipendenze.append(temp)
 
-	db.App.insert_one(
+	cl.insert_one(
 	    {
 		"id": appId,
 		"#Permessi":numeroPermessi,
@@ -92,7 +93,7 @@ def insert(appId,listaPermessi,listaPermessiDuplicati,listaFile,listaActivity,li
 		if string.startswith('<') or string.startswith('>'):
 			numeroClassiDipendenze=numeroClassiDipendenze-1
 	try:
-		db.App.insert_one(
+		cl.insert_one(
 		    {
 			"id": appId,
 			"#Permessi":len(listaPermessi),
@@ -116,7 +117,7 @@ def insert(appId,listaPermessi,listaPermessiDuplicati,listaFile,listaActivity,li
 # funzione per verificare se una app e' gia' stata inserita all'interno del db
 def check(Id):
     try:
-	empCol = db.App.find_one({'id':Id})
+	empCol = cl.find_one({'id':Id})
 	if empCol:
 		return True
 	else:

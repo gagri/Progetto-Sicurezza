@@ -7,16 +7,17 @@ import subprocess
 def ricercaDipendenze(path1 , path2):
 	array_diff=[]
 	directory=os.path.dirname(path1)
+	directory2=os.path.join(directory, "analisiDip")
+	directory = directory.replace(' ','\ ')
 	basename=os.path.basename(path1)
 	basename2=os.path.basename(path2)
 	#print basename
 	#print basename2
-	comando1= "jdeps -verbose:class -dotoutput " + directory + "/analisiDip " + path1
-	comando2= "jdeps -verbose:class -dotoutput " + directory + "/analisiDip " + path2
+	comando1= "jdeps -verbose:class -dotoutput " + directory + "/analisiDip " + path1.replace(' ','\ ')
+	comando2= "jdeps -verbose:class -dotoutput " + directory + "/analisiDip " + path2.replace(' ','\ ')
 	os.system(comando1)
 	os.system(comando2)
 	#directory per analisi dip
-	directory2=os.path.join(directory, "analisiDip")
 	dotFile1=directory2 + "/" + basename + ".dot"
 	dotFile2=directory2 + "/"+ basename2 + ".dot"
 	#print dotFile1	
@@ -24,12 +25,12 @@ def ricercaDipendenze(path1 , path2):
 	nodesFile2=dotFile2 + ".nodes"	
 	#print dotFile1
 	#print nodesFile1
-	comandoN1= "dot -Tplain " + dotFile1 + " | sed -ne 's/^node \([^ ]\+\).*$/\\1/p' | sort > " + nodesFile1
-	comandoN2="dot -Tplain " + dotFile2 + " | sed -ne 's/^node \([^ ]\+\).*$/\\1/p' | sort > " + nodesFile2
+	comandoN1= "dot -Tplain " + dotFile1.replace(' ','\ ') + " | sed -ne 's/^node \([^ ]\+\).*$/\\1/p' | sort > " + nodesFile1.replace(' ','\ ')
+	comandoN2="dot -Tplain " + dotFile2.replace(' ','\ ') + " | sed -ne 's/^node \([^ ]\+\).*$/\\1/p' | sort > " + nodesFile2.replace(' ','\ ')
 	os.system(comandoN1)
 	os.system(comandoN2)
 	#comando per la diff
-	comandoDiff= "diff " + nodesFile1 + " " + nodesFile2
+	comandoDiff= "diff " + nodesFile1.replace(' ','\ ') + " " + nodesFile2.replace(' ','\ ')
 	#print comandoDiff
 	#questa parte serve per inserire il risultato nel comando nell array che poi viene ritornato
 	'''

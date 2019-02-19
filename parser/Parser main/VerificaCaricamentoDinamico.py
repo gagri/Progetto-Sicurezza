@@ -30,7 +30,8 @@ def verificaIndicatori(listaIndicatori):
 		if stdout_value:
 			CaricamentoDinamico= True
 			listaIndicatori.append(stdout_value)
-	listaIndicatori=listaIndicatori[0].splitlines()
+	if CaricamentoDinamico:
+		listaIndicatori=listaIndicatori[0].splitlines()
 	return CaricamentoDinamico
 
 

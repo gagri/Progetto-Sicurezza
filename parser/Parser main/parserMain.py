@@ -8,16 +8,15 @@ import sys
 
 #path della directory contenete tutte le app
 #dir= "/Users/grima/Desktop/Materiale2"
-dir=sys.argv[1]
+#dir=sys.argv[1]
 
 #dir = "D:\Apk_Dec1-1199"
 
 
-
-
+dir="/media/lucio/HD Aure/Dataset_Visaggio_Progetto/Apk_Da_Dec_2400"
 for item in os.listdir(dir): #cicla per ogni elemento di quella cartella, senza vedere le eventuali sotto cartelle
     itemfullpath = os.path.join(dir, item) #ottengo percorso completo
-    print(itemfullpath)
+    #print(itemfullpath)
     percorsifilejar = []
     percorsidirectory = []
     for i in os.listdir(itemfullpath): #scorro la sottocartella
@@ -67,6 +66,7 @@ for item in os.listdir(dir): #cicla per ogni elemento di quella cartella, senza 
         # esegue la ricerca delle dipendenze e le stampa
 
         jdeps = ricerca.ricercaDipendenze(percorsifilejar[0], percorsifilejar[1])
+	#jdeps=["prova"]
         #  print len(jdeps)
         # for a in jdeps:      print(a)
         print
