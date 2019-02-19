@@ -2,7 +2,7 @@ import os
 import parserManifest
 import VerificaCaricamentoDinamico
 import ricerca
-#import ComunicazioneDB
+import ComunicazioneDB
 import contaFiles
 import sys
 
@@ -34,7 +34,7 @@ for item in os.listdir(dir): #cicla per ogni elemento di quella cartella, senza 
             percorsidirectory.append(ifullpath)
 
     #controllo se gli elementi sono presenti nella cartella o altrimenti l'analisi non e' possibile
-    if len(percorsifilejar) >= 2 and len(percorsidirectory) >= 2:
+    if len(percorsifilejar) >= 2 and len(percorsidirectory) >= 2 and not ComunicazioneDB.check(item):
         print 'prime due cartelle ottenute:'
         print percorsidirectory[0]
         print percorsidirectory[1]
@@ -66,7 +66,7 @@ for item in os.listdir(dir): #cicla per ogni elemento di quella cartella, senza 
 
         # esegue la ricerca delle dipendenze e le stampa
 
-        # jdeps = ricerca.ricercaDipendenze(percorsifilejar[0], percorsifilejar[1])
+        jdeps = ricerca.ricercaDipendenze(percorsifilejar[0], percorsifilejar[1])
         #  print len(jdeps)
         # for a in jdeps:      print(a)
         print
@@ -79,7 +79,7 @@ for item in os.listdir(dir): #cicla per ogni elemento di quella cartella, senza 
         print
         print
         print
-        # ComunicazioneDB.insert(item,differenzaPermessi,differenzaActivity,differenzaActivity,vcd,jdeps)
+        ComunicazioneDB.insert(item,differenzaPermessi,permessiDuplicati,differenzaActivity,differenzaActivity,vcd,jdeps)
 
     else:
         print ("elementi necessari per l'analisi non trovati")
