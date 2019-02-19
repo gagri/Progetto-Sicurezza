@@ -117,9 +117,9 @@ class coppiaManifest():
         return diffList(activity1,activity2)
 
     #restituisce i permessi duplicati nel primo manifest più quelli duplicati nel secondo
-    def duplicatiActivity(self):
-        activity1 = getNomiActivity(self.root1)
-        activity2 = getNomiActivity(self.root2)
-        duplicati1 =  cercaDuplicati(activity1)
-        duplicati2 = cercaDuplicati(activity2)
+    def duplicatiPermessi(self):
+        permessi1 = getPermessi(self.root1)
+        permessi2 = getPermessi(self.root2)
+        duplicati1 =  cercaDuplicati(permessi1)
+        duplicati2 = cercaDuplicati(permessi2)
         return duplicati1+duplicati2
