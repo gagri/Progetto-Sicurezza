@@ -88,7 +88,7 @@ def cercaDuplicati(lista):
     return(duplicati)
 
 
-#dato un percorso e un nome file scrive la lista passata su quel file (in modalità w)
+#dato un percorso e un nome file del scrive la lista passata su quel file (in modalità w)
 def scriviListaSuFile(file, lista):
     file = open(file, "w")
     for item in lista:
@@ -115,3 +115,11 @@ class coppiaManifest():
         activity1 = getNomiActivity(self.root1)
         activity2 = getNomiActivity(self.root2)
         return diffList(activity1,activity2)
+
+    #restituisce i permessi duplicati nel primo manifest più quelli duplicati nel secondo
+    def duplicatiActivity(self):
+        activity1 = getNomiActivity(self.root1)
+        activity2 = getNomiActivity(self.root2)
+        duplicati1 =  cercaDuplicati(activity1)
+        duplicati2 = cercaDuplicati(activity2)
+        return duplicati1+duplicati2
