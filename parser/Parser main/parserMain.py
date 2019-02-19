@@ -2,7 +2,7 @@ import os
 import parserManifest
 import VerificaCaricamentoDinamico
 import ricerca
-import ComunicazioneDB
+#import ComunicazioneDB
 import contaFiles
 import sys
 
@@ -84,24 +84,6 @@ for item in os.listdir(dir): #cicla per ogni elemento di quella cartella, senza 
     else:
         print ("elementi necessari per l'analisi non trovati")
         print
-
-    #esegue la ricerca delle dipendenze e le stampa
-
-    jdeps = ricerca.ricercaDipendenze(percorsifilejar[0], percorsifilejar[1])
-    #jdeps = ["prova"]
- #  print len(jdeps)
-    #for a in jdeps:      print(a)
-    print
-
-    # esegue e stampa il caricamento dinamico
-    vcd = VerificaCaricamentoDinamico.CaricamentoDinamico(percorsidirectory[0], percorsidirectory[1])
-    #print 'risultato VerificaCaricamentoDinamico:'
-    #for a in vcd:
-     #   print(a)
-    print
-    print
-    print
-    ComunicazioneDB.insert(item,differenzaPermessi,differenzaFile,differenzaActivity,vcd,jdeps)
 
     
 
