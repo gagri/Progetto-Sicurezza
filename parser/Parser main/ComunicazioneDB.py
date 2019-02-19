@@ -3,8 +3,8 @@ from pymongo import MongoClient
 
 #non e' possibile includere la parte di connessione in una funzione perche' le variabili client e db devono essere globali ma la funzione insertStampa che non fa accessi al db funziona in ogni caso
 client = MongoClient('localhost:27017')
-db = client.AppProva
-cl = db.prova
+db = client.App
+cl = db.app
 
 # Funzione che serve a verificare l'effettivo collegamento con il db e che consente l'inserimento dei dati da stdinput
 # non sono previsti parametri in ingressi questi vengono inseriti tramite stdinput

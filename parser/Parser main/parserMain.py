@@ -14,6 +14,7 @@ import sys
 
 
 dir="/media/lucio/HD Aure/Dataset_Visaggio_Progetto/Apk_Da_Dec_2400"
+
 for item in os.listdir(dir): #cicla per ogni elemento di quella cartella, senza vedere le eventuali sotto cartelle
     itemfullpath = os.path.join(dir, item) #ottengo percorso completo
     #print(itemfullpath)
@@ -42,44 +43,43 @@ for item in os.listdir(dir): #cicla per ogni elemento di quella cartella, senza 
         # esegue le operazioni sul manifest e stampa la differenza di permessi e activity
         coppiaManifest = parserManifest.coppiaManifest(os.path.join(percorsidirectory[0], "AndroidManifest.xml"),
                                                        os.path.join(percorsidirectory[1], "AndroidManifest.xml"))
-        print 'differenza permessi:'
+        #print 'differenza permessi:'
         differenzaPermessi = coppiaManifest.differenzaPermessi()
-        print differenzaPermessi
-        print
-        print "differenza activity:"
+        #print differenzaPermessi
+        #print
+        #print "differenza activity:"
         differenzaActivity = coppiaManifest.differenzaActivity()
-        print differenzaActivity
-        print
-        print "permessi duplicati:"
+        #print differenzaActivity
+        #print
+        #print "permessi duplicati:"
         permessiDuplicati = coppiaManifest.duplicatiPermessi()
-        print permessiDuplicati
-        print
+        #print permessiDuplicati
+        #print
 
         # operazioni sui file
-        print "differenza tra i file:"
+        #print "differenza tra i file:"
         res1 = os.path.join(percorsidirectory[0], 'res')  # unisco il path del percorso a "res"
         res2 = os.path.join(percorsidirectory[1], 'res')
         differenzaFile = contaFiles.differenzaRisorse(res1, res2)
-        print differenzaFile
-        print
+        #print differenzaFile
+        #print
 
         # esegue la ricerca delle dipendenze e le stampa
-
         jdeps = ricerca.ricercaDipendenze(percorsifilejar[0], percorsifilejar[1])
 	#jdeps=["prova"]
         #  print len(jdeps)
         # for a in jdeps:      print(a)
-        print
+        #print
 
         # esegue e stampa il caricamento dinamico
         vcd = VerificaCaricamentoDinamico.CaricamentoDinamico(percorsidirectory[0], percorsidirectory[1])
         # print 'risultato VerificaCaricamentoDinamico:'
         # for a in vcd:
         #   print(a)
-        print
-        print
-        print
-        ComunicazioneDB.insert(item,differenzaPermessi,permessiDuplicati,differenzaActivity,differenzaActivity,vcd,jdeps)
+        #print
+        #print
+        #print
+        ComunicazioneDB.insert(item,differenzaPermessi,permessiDuplicati,differenzaFile,differenzaActivity,vcd,jdeps)
 
     else:
         print ("elementi necessari per l'analisi non trovati")
