@@ -53,6 +53,10 @@ for item in os.listdir(dir): #cicla per ogni elemento di quella cartella, senza 
     differenzaActivity = coppiaManifest.differenzaActivity()
     print differenzaActivity
     print
+    print "permessi duplicati:"
+    permessiDuplicati = coppiaManifest.duplicatiPermessi()
+    print permessiDuplicati
+    print
 
 
 
