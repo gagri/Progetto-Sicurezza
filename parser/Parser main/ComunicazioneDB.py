@@ -110,6 +110,20 @@ def insert(appId,listaPermessi,listaFile,listaActivity,listaIndicatoriCaricament
 	except Exception, e:
         	print str(e)	
 
+
+# funzione per verificare se una app e' gia' stata inserita all'interno del db
+def check(Id):
+    try:
+	empCol = db.App.find_one({'id':Id})
+	if empCol:
+		return True
+	else:
+		return False
+
+    except Exception, e:
+	print str(e)
+
+
 #comandi utilizzati per testare il programma
 #insertProva()
 #lista = ['a','b','c']
