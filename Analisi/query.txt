@@ -1,0 +1,23 @@
+//Query aggregazione valori (usato per media)
+/**
+ * _id - The id of the group.
+ * field1 - The first field name.
+ */
+{
+  _id: "sum",
+  tot: {
+    $sum: "$numIndicatoriCaricamentoDinamico"
+  }
+}
+
+{numDipendenzeAggiunte: {$gt:0} , numFile: {$gt: 0}}
+
+{numIndicatoriCaricamentoDinamico: {$gt:0} , numFile: {$gt: 0}}
+
+{numActivity: {$gt:0} , numDipendenzeAggiunte: {$gt: 0}}
+
+{numIndicatoriCaricamentoDinamico: {$gt:0} , numDipendenzeAggiunte: {$gt: 0}}
+
+{numPermessiAggiunti: {$gt:0} , numActivity: {$gt: 0}}
+
+{numPermessiAggiunti: {$gt:0} , numDipendenzeAggiunte: {$gt: 0}}
