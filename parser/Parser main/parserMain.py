@@ -11,9 +11,10 @@ import sys
 #dir=sys.argv[1]
 
 #dir = "D:\Apk_Dec1-1199"
+import datetime
+import time
 
-
-dir="/media/lucio/HD Aure/Dataset_Visaggio_Progetto/Apk_Da_Dec_2400"
+dir="/home/lucio/Scrivania/Progetto-Sicurezza/apkprova"
 
 for item in os.listdir(dir): #cicla per ogni elemento di quella cartella, senza vedere le eventuali sotto cartelle
     itemfullpath = os.path.join(dir, item) #ottengo percorso completo
@@ -35,11 +36,14 @@ for item in os.listdir(dir): #cicla per ogni elemento di quella cartella, senza 
 
     #controllo se gli elementi sono presenti nella cartella o altrimenti l'analisi non e' possibile
     if len(percorsifilejar) >= 2 and len(percorsidirectory) >= 2 and not ComunicazioneDB.check(item):
+	ts = time.time()
+	st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
         print 'prime due cartelle ottenute:'
         print percorsidirectory[0]
         print percorsidirectory[1]
         print
-
+	print st
+	print
         # esegue le operazioni sul manifest e stampa la differenza di permessi e activity
         coppiaManifest = parserManifest.coppiaManifest(os.path.join(percorsidirectory[0], "AndroidManifest.xml"),
                                                        os.path.join(percorsidirectory[1], "AndroidManifest.xml"))
