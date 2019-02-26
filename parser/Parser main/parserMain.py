@@ -1,7 +1,7 @@
 import os
 import parserManifest
 import VerificaCaricamentoDinamico
-import ricerca
+import ricercaNew
 import ComunicazioneDB
 import contaFiles
 import sys
@@ -69,7 +69,7 @@ for item in os.listdir(dir): #cicla per ogni elemento di quella cartella, senza 
         #print
 
         # esegue la ricerca delle dipendenze e le stampa
-        jdeps = ricerca.ricercaDipendenze(percorsifilejar[0], percorsifilejar[1])
+        jdeps = ricercaNew.ricercaDipendenze(percorsifilejar[0], percorsifilejar[1])
 	#jdeps=["prova"]
         #  print len(jdeps)
         # for a in jdeps:      print(a)
