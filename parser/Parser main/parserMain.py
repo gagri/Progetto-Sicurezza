@@ -14,6 +14,8 @@ import sys
 import datetime
 import time
 
+#cartella gia' analizzata
+#dir="/media/lucio/HDAure/Dataset_Visaggio_Progetto/ApkDec2400"
 dir="/media/lucio/HDAure/Dataset_Visaggio_Progetto/ApkDec2400"
 
 for item in os.listdir(dir): #cicla per ogni elemento di quella cartella, senza vedere le eventuali sotto cartelle
