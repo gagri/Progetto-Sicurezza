@@ -14,7 +14,7 @@ import sys
 import datetime
 import time
 
-dir="/home/lucio/Scrivania/Progetto-Sicurezza/apkprova"
+dir="/media/lucio/HDAure/Dataset_Visaggio_Progetto/ApkDec2400"
 
 for item in os.listdir(dir): #cicla per ogni elemento di quella cartella, senza vedere le eventuali sotto cartelle
     itemfullpath = os.path.join(dir, item) #ottengo percorso completo
