@@ -3,7 +3,7 @@ from pymongo import MongoClient
 
 #non e' possibile includere la parte di connessione in una funzione perche' le variabili client e db devono essere globali ma la funzione insertStampa che non fa accessi al db funziona in ogni caso
 client = MongoClient('localhost:27017')
-db = client.App
+db = client.App1
 cl = db.app
 
 # Funzione che serve a verificare l'effettivo collegamento con il db e che consente l'inserimento dei dati da stdinput
@@ -62,23 +62,23 @@ def insertStampa(appId,listaPermessi,listaFile,listaActivity,listaIndicatoriCari
 	string=[]
 	string.append('"id":')
 	string.append(appId)
-	string.append('"#Permessi":')
+	string.append('"numPermessiDuplicati":')
 	string.append(len(listaPermessi))
 	string.append('"Lista permessi":')
 	string.append(listaPermessi)
-	string.append('"#File":')
+	string.append('"numFile":')
 	string.append(len(listaFile))
 	string.append('"Lista file":')
 	string.append(listaFile)
-	string.append('"#Activity":')
+	string.append('"numActivity":')
 	string.append(len(listaActivity))
 	string.append('"Lista Activity":')
 	string.append(listaActivity)
-	string.append('"#Indicatori Caricamento dinamico":')
+	string.append('"numIndicatoriCaricamentoDinamico":')
 	string.append(len(listaIndicatoriCaricamentoDinamico))
 	string.append('"Lista Record Caricamento dinamico":')
 	string.append(listaIndicatoriCaricamentoDinamico)
-	string.append('"#Dipendenze Aggiunte":')
+	string.append('"numDipendenzeAggiunte":')
 	string.append(len(listaDipendenze))
 	string.append('"Lista Dipendenze Aggiunte":')
 	string.append(listaDipendenze)
@@ -96,17 +96,17 @@ def insert(appId,listaPermessi,listaPermessiDuplicati,listaFile,listaActivity,li
 		cl.insert_one(
 		    {
 			"id": appId,
-			"#Permessi":len(listaPermessi),
+			"numPermessiAggiunti":len(listaPermessi),
 			"Lista Permessi": listaPermessi,
-			"#Permessi Duplicati": len(listaPermessiDuplicati),
+			"numPermessiDuplicati": len(listaPermessiDuplicati),
 			"Lista Permessi Duplicati": listaPermessiDuplicati,
-			"#File":len(listaFile),
+			"numFile":len(listaFile),
 			"Lista File": listaFile,
-			"#Activity": len(listaActivity),
+			"numActivity": len(listaActivity),
 			"Lista Activity": listaActivity,
-			"#Indicatori Caricamento dinamico": len(listaIndicatoriCaricamentoDinamico),
+			"numIndicatoriCaricamentoDinamico": len(listaIndicatoriCaricamentoDinamico),
 			"Lista Indicatori Caricamento dinamico": listaIndicatoriCaricamentoDinamico,
-			"#Dipendenze Aggiunte":numeroClassiDipendenze,
+			"numDipendenzeAggiunte":numeroClassiDipendenze,
 			"Lista Dipendenze Aggiunte": listaDipendenze
 		    })
 	        print '\nInserted data successfully\n'
