@@ -6,17 +6,18 @@ import ComunicazioneDB
 import contaFiles
 import sys
 
-#path della directory contenete tutte le app
-#dir= "/Users/grima/Desktop/Materiale2"
 #dir=sys.argv[1]
 
-#dir = "D:\Apk_Dec1-1199"
 import datetime
 import time
 
 #cartella gia' analizzata
 #dir="/media/lucio/HDAure/Dataset_Visaggio_Progetto/ApkDec2400"
-dir="/media/lucio/HDAure/Dataset_Visaggio_Progetto/ApkDec2400"
+#dir="/media/lucio/TOSHIBA EXT/Dataset2/Apk_Dec1-1199"
+#dir="/media/lucio/TOSHIBA EXT/Dataset2/ApkDec2400"
+#dir="/media/lucio/HDAure/Dataset_Visaggio_Progetto/Apk_Dec1-1199"
+#dir="/media/lucio/HDAure/Dataset_Visaggio_Progetto/Apk_Da_Dec_2400"
+dir="/media/lucio/HDAure/Dataset_Visaggio_Progetto/ApkDec_1200-2399"
 
 for item in os.listdir(dir): #cicla per ogni elemento di quella cartella, senza vedere le eventuali sotto cartelle
     itemfullpath = os.path.join(dir, item) #ottengo percorso completo
